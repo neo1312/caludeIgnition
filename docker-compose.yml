@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: ignition-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ignition
+      POSTGRES_PASSWORD: ignition
+      POSTGRES_DB: ignition
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"      # host:container — access from host on 5433
+    networks:
+      - ignition-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ignition"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ignition:
+    image: inductiveautomation/ignition:8.3
+    container_name: ignition-gateway
+    restart: always
+    ports:
+      - "8088:8088"
+      - "8043:8043"      # HTTPS (optional but recommended)
+    environment:
+      ACCEPT_IGNITION_EULA: "Y"
+      GATEWAY_ADMIN_USERNAME: admin
+      GATEWAY_ADMIN_PASSWORD: password
+    volumes:
+      - ignition-data:/usr/local/ignition/data          # ✅ correct path
+      - ./ignition-projects:/usr/local/ignition/data/projects  # ✅ bind mount for Git
+    depends_on:
+      postgres:
+        condition: service_healthy   # wait until postgres is actually ready
+    networks:
+      - ignition-net
+
+volumes:
+  postgres-data:
+  ignition-data:
+
+networks:
+  ignition-net:
+    driver: bridge

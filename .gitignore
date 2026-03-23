@@ -1,0 +1,12 @@
+# Ignition internal data — never track these
+ignition-data/
+*.db
+*.db-shm
+*.db-wal
+*.idb
+logs/
+cache/
+temp/
+
+# Keep tracking the projects folder
+!ignition-projects/
