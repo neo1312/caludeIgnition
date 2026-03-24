@@ -1,12 +1,16 @@
-# Ignition internal data — never track these
-ignition-data/
+# Builtin icons — these are Ignition's own files, not yours
+ignition-config/resources/core/ignition/images/
+
+# SSL keystores and certificates — sensitive, never commit these
+ignition-config/resources/local/com.inductiveautomation.opcua/client-keystore/
+ignition-config/resources/local/com.inductiveautomation.opcua/server-keystore/
+ignition-config/local/ignition/gateway-network/keystore/
+ignition-config/local/ignition/webserver/keystore/
+
+# Internal runtime files
+ignition-projects/.resources/
 *.db
 *.db-shm
 *.db-wal
 *.idb
-logs/
-cache/
-temp/
-
-# Keep tracking the projects folder
-!ignition-projects/
+*.pfx
