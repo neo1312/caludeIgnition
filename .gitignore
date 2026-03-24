@@ -1,16 +1,20 @@
-# Builtin icons — these are Ignition's own files, not yours
+# Builtin icons — Ignition system files
 ignition-config/resources/core/ignition/images/
 
-# SSL keystores and certificates — sensitive, never commit these
+# SSL keystores and certificates — sensitive
 ignition-config/resources/local/com.inductiveautomation.opcua/client-keystore/
 ignition-config/resources/local/com.inductiveautomation.opcua/server-keystore/
 ignition-config/local/ignition/gateway-network/keystore/
 ignition-config/local/ignition/webserver/keystore/
 
-# Internal runtime files
-ignition-projects/.resources/
+# Internal Ignition runtime files
+**/.resources/
+
+# Database and runtime files
 *.db
 *.db-shm
 *.db-wal
 *.idb
+
+# Certificates
 *.pfx
